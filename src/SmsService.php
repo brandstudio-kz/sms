@@ -29,7 +29,7 @@ class SmsService
                 'login'     => $this->config['login'],
                 'phones'    => $phone,
                 'mes'       => $text,
-                'from'      => 'LENSTORE',
+                'from'      => $this->config['from'],
                 'psw'       => $this->config['psw'],
                 'time'      => $this->config['time'],
             ],
