@@ -20,7 +20,7 @@ class SmsService
 
     public function send(string $phone, string $text)
     {
-        if (config('app.env') !== 'production') {
+        if (!config('sms.enabled')) {
             return;
         }
 
