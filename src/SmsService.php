@@ -21,6 +21,7 @@ class SmsService
     public function send(string $phone, string $text)
     {
         if (!config('sms.enabled')) {
+            Log::info("Prevented sms to {$phone}. Text: ${text}");
             return;
         }
 
