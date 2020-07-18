@@ -18,7 +18,7 @@ class SmsService
         $this->httpClient = new httpClient();
     }
 
-    public function send(string $phone, string $text)
+    public function send(string $phone, string $text, array $params = [])
     {
         if (!config('sms.enabled')) {
             Log::info("Prevented sms to {$phone}. Text: ${text}");
@@ -26,14 +26,14 @@ class SmsService
         }
 
         $promise = $this->httpClient->requestAsync('GET', $this->config['base_url'], [
-            'query' => [
+            'query' => array_merge($params, [
                 'login'     => $this->config['login'],
                 'phones'    => $phone,
                 'mes'       => $text,
                 'from'      => $this->config['from'],
                 'psw'       => $this->config['psw'],
                 'time'      => $this->config['time'],
-            ],
+            ]),
         ]);
         $promise->then(
             function (ResponseInterface $res) use ($phone) {
